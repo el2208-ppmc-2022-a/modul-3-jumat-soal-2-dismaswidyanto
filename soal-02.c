@@ -18,10 +18,10 @@
 #define FILTER_COLUMN 3
 #define MAX_STRING 200
 
-// Deklarasi variabel
 int inputMatrix[INPUT_ROW*INPUT_COLUMN];
 float filterMatrix[FILTER_ROW*FILTER_COLUMN];
 float outputMatrix[(INPUT_ROW-FILTER_ROW+1)*(INPUT_COLUMN-FILTER_COLUMN+1)];
+int isFileExist = 1;
 
 //----------------------------------- FUNGSI MEMBACA FILE -----------------------------------//
 // Deskripsi: mengekstrak informasi dari file eksternal dan menyimpannya ke dalam variabel input dan filter
@@ -81,8 +81,22 @@ void getMatrix(int *input, float *filter){
 // *output : pointer matriks output
 //---------------------------------------------------------------------------------------//
 void convolution(int *input, float *filter, float *output){
-	//-----Tuliskan kode anda disini------//
-	
+	float temp = 0;
+	for(int rowIdx = 0; rowIdx <= INPUT_ROW - FILTER_ROW; rowIdx++){
+		for(int colIdx = 0; colIdx <= INPUT_COLUMN - FILTER_COLUMN; colIdx++){
+			for(int i = 0; i<FILTER_ROW; i++){
+				for(int j = 0; j<FILTER_COLUMN; j++){
+					temp += (float)*(input+(rowIdx+i)*INPUT_COLUMN+colIdx+j) * *(filter+i*FILTER_COLUMN+j);
+					// printf("temp : %d\n", temp); untuk debug
+				}
+			}
+			*(output+rowIdx*(INPUT_COLUMN - FILTER_COLUMN + 1) + colIdx) = temp;
+			temp = 0;
+			
+		}
+	}
+
+	return;
 }
 
 //----------------------------------- FUNGSI OUTPUT -----------------------------------//
@@ -119,6 +133,13 @@ void printMatrix(int *input, float *filter, float *output){
 }
 
 int main(){
-	//-----Tuliskan kode anda disini------//
+	getMatrix(inputMatrix, filterMatrix);
 
+	convolution(inputMatrix, filterMatrix, outputMatrix);
+
+	if(isFileExist){
+		printMatrix(inputMatrix, filterMatrix, outputMatrix);
+	}
+
+	return 0;
 }
