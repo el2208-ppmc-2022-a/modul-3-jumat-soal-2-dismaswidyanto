@@ -110,7 +110,7 @@ void printMatrix(int *input, float *filter, float *output){
 	printf("Matriks input: \n");
 	for(int row = 0; row < INPUT_ROW; row++){
 		for(int col = 0; col < INPUT_COLUMN; col++){
-			printf("%d\t", *(input+row*(INPUT_COLUMN) + col));
+			printf("%d,", *(input+row*(INPUT_COLUMN) + col));
 		}
 		printf("\n");
 	}
@@ -118,7 +118,7 @@ void printMatrix(int *input, float *filter, float *output){
 	printf("Matriks filter: \n");
 	for(int row = 0; row < FILTER_ROW; row++){
 		for(int col = 0; col < FILTER_COLUMN; col++){
-			printf("%.2f\t", *(filter+row*(FILTER_COLUMN) + col));
+			printf("%.2f,", *(filter+row*(FILTER_COLUMN) + col));
 		}
 		printf("\n");
 	}
@@ -126,7 +126,7 @@ void printMatrix(int *input, float *filter, float *output){
 	printf("Matriks output: \n");
 	for(int row = 0; row < INPUT_ROW-FILTER_ROW+1; row++){
 		for(int col = 0; col < INPUT_COLUMN-FILTER_COLUMN+1; col++){
-			printf("%.2f\t", *(output+row*(INPUT_COLUMN - FILTER_COLUMN + 1) + col));
+			printf("%.2f,", *(output+row*(INPUT_COLUMN - FILTER_COLUMN + 1) + col));
 		}
 		printf("\n");
 	}
